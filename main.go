@@ -1,14 +1,22 @@
 package main
 
 import (
+	"log"
 	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jesseokeya/nightowl/routes"
+	"github.com/joho/godotenv"
 )
 
 func main() {
 	var PORT string
+
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
 	if PORT = os.Getenv("PORT"); PORT == "" {
 		PORT = "3000"
 	}
