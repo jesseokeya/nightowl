@@ -8,7 +8,7 @@ import (
 
 // DB is gorm database object
 var (
-	DB *gorm.DB
+	DBCon *gorm.DB
 )
 
 type Database struct 

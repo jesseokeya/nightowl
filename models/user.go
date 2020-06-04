@@ -1,8 +1,8 @@
 package models
 
 import (
-	"github.com//jesseokeya/nightowl/services"
 	"github.com/jesseokeya/nightowl/database"
+	"github.com/jesseokeya/nightowl/services"
 	"github.com/jesseokeya/nightowl/structs"
 )
 
@@ -13,7 +13,7 @@ type User struct {
 }
 
 func init() {
-	database.DB.AutoMigrate(&User{})
+	database.DBCon.AutoMigrate(&User{})
 }
 
 // BeforeCreate hashes the password before user is craeted
