@@ -17,7 +17,7 @@ func init() {
 }
 
 // BeforeCreate hashes the password before user is craeted
-func (u *User) BeforeCreate() User {
+func (u *User) BeforeCreate() *User {
 	if u.Password != "" {
 		u.Password = services.HashAndSalt([]byte(u.Password))
 	}

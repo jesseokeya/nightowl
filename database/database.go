@@ -1,8 +1,8 @@
 package database
 
 import (
-	"github.com/jesseokeya/nightowl/structs"
 	"github.com/jinzhu/gorm"
+	// configuration for sqlite dialect database
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
@@ -11,9 +11,12 @@ var (
 	DBCon *gorm.DB
 )
 
-type Database struct 
-
 // Connect helps connect to the data base using gorm db object
-func Connect(d structs.Database) (*gorm.DB, error) {
-	return gorm.Open(d.sqlType, d.name)
+func init() {
+	var err error
+	DBCon, err = gorm.Open("sqlite3", "test.db")
+	if err != nil {
+		panic("failed to connect database")
+	}
+	DBCon.LogMode(true)
 }
