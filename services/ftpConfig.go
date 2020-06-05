@@ -3,9 +3,7 @@ package services
 
 import (
 	"encoding/json"
-	"fmt"
 	"html/template"
-	"log"
 	"os"
 )
 
@@ -41,40 +39,47 @@ type UserFTPConfig struct {
 	Path string
 }
 
-var templ string = `{
-  "version": 1,
-  "accesses": [
-    {
-	  "user": "{{ (index .accesses 0).user }}",
-      "pass": "{{ (index .accesses 0).pass }}",
-      "fs": "os",
-      "params": {
-        "basePath": "{{ (index .accesses 0).params.basePath }}"
-      }
-    }
-  ],
-  "passive_transfer_port_range": {
-    "start": 2122,
-    "end": 2130
-  }
-}`
+func handle(e error) {
+	if e != nil {
+		panic(e)
+	}
+}
+
+func configTemplate() string {
+	return `
+	{
+		"version": 1,
+		"accesses": [
+			{
+				"user": "{{ (index .accesses 0).user }}",
+				"pass": "{{ (index .accesses 0).pass }}",
+				"fs": "os",
+				"params": {
+					"basePath": "{{ (index .accesses 0).params.basePath }}"
+				}
+			}
+		],
+		"passive_transfer_port_range": {
+			"start": 2122,
+			"end": 2130
+		}
+	}`
+}
 
 // CreateFTPConfiguration created ftp configuration file
 func (c *UserFTPConfig) CreateFTPConfiguration() {
 	path, err := os.Getwd()
-	if err != nil {
-		log.Println(err)
-	}
+	handle(err)
+
 	configFilePath := path + "/ftpserver.json"
-	fmt.Println(configFilePath)
 	ftpConfig := &FtpConfig{
 		Version: 1,
 		Accesses: []Access{
-			Access{
+			{
 				User: c.User,
 				Pass: c.Pass,
 				Parameters: Params{
-					BasePath: c.Path,
+					BasePath: path + os.Getenv("STORE"),
 				},
 			},
 		},
@@ -84,28 +89,18 @@ func (c *UserFTPConfig) CreateFTPConfiguration() {
 		},
 	}
 	if _, err := os.Stat(configFilePath); os.IsNotExist(err) {
-		log.Printf("config file %s does exist", configFilePath)
-	} else {
-		temp := template.Must(template.New("").Parse(templ))
+		temp := template.Must(template.New("").Parse(configTemplate()))
 		config, err := json.Marshal(ftpConfig)
-		if err != nil {
-			panic(err)
-		}
+		handle(err)
 
 		reference := map[string]interface{}{}
-		if err := json.Unmarshal(config, &reference); err != nil {
-			panic(err)
-		}
+		err = json.Unmarshal(config, &reference)
+		handle(err)
 
 		createdFile, err := os.Create(configFilePath)
-		if err != nil {
-			panic(err)
-		}
+		handle(err)
 
-		if err := temp.Execute(createdFile, reference); err != nil {
-			panic(err)
-		}
-
-		defer createdFile.Close()
+		err = temp.Execute(createdFile, reference)
+		handle(err)
 	}
 }

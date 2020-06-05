@@ -3,6 +3,7 @@
 for cmd in "$@"; do {
   echo "Process \"$cmd\" started";
   $cmd & pid=$!
+  sleep 3
   PID_LIST+=" $pid";
 } done
 
