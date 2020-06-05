@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 	"github.com/jesseokeya/nightowl/routes"
 	"github.com/joho/godotenv"
@@ -22,7 +23,8 @@ func main() {
 	}
 
 	r := gin.Default()
-
+	r.Use(static.Serve("/", static.LocalFile("./client/build", true)))
+	r.Static("/resources", "./resources")
 	r.Use(func(c *gin.Context) {
 		c.Writer.Header().Add("Access-Control-Allow-Origin", "*")
 		c.Writer.Header().Add("Access-Control-Allow-Credentials", "true")
@@ -37,5 +39,5 @@ func main() {
 
 	routes.Router(r)
 
-	r.Run(":" + PORT)
+	r.Run("0.0.0.0:" + PORT)
 }

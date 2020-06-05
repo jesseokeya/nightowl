@@ -4,6 +4,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 )
 
 // Folder is a json representation ot the resources (videos/images) found in a folder
@@ -13,10 +14,12 @@ type Folder struct {
 
 // File is the description of the file found in the folder
 type File struct {
-	Name      string `json:"name"`
-	SelfLink  string `json:"selfLink"`
-	Size      int64  `json:"size"`
-	ParentDir string `json:"parentDirectory"`
+	Name      string    `json:"name"`
+	Path      string    `json:"path"`
+	Size      int64     `json:"size"`
+	ParentDir string    `json:"parentDirectory"`
+	SelfLink  string    `json:"selfLink"`
+	Created   time.Time `json:"created"`
 }
 
 // Interprete gives us insights with a json representation of how a particular folder is structured
@@ -29,11 +32,14 @@ func (f *Folder) Interprete() []File {
 		if !info.IsDir() {
 			split := strings.Split(path, "/")
 			parentDir := strings.Join(split[:len(split)-1], "/")
+			link := strings.Replace(path, root, "", 1)
 			file := File{
 				ParentDir: parentDir,
 				Name:      info.Name(),
 				Size:      info.Size(),
-				SelfLink:  path,
+				Path:      path,
+				SelfLink:  "/resources" + link,
+				Created:   info.ModTime(),
 			}
 			files = append(files, file)
 		}
