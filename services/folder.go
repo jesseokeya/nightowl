@@ -38,7 +38,7 @@ func (f *Folder) Interprete() []File {
 				Name:      info.Name(),
 				Size:      info.Size(),
 				Path:      path,
-				SelfLink:  os.Getenv("STORE") + link,
+				SelfLink:  "/" + link,
 				Created:   info.ModTime(),
 			}
 			files = append(files, file)
