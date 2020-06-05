@@ -21,4 +21,7 @@ func Router(r *gin.Engine) {
 	r.POST("/images", ctrl.CreateImage)
 	r.PUT("/images/:id", ctrl.UpdateImage)
 	r.DELETE("/images/:id", ctrl.DeleteImage)
+
+	//resources routes
+	r.GET("/resources", ctrl.GetResources)
 }
