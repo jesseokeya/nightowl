@@ -11,25 +11,15 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func init() {
-	config := services.UserFTPConfig{
-		User: "jesseokeya",
-		Pass: "connect123!@#",
-		Path: "/Users/jesseokeya/go/src/github.com/jesseokeya/nightowl/resources",
-	}
-
-	config.CreateFTPConfiguration()
+func main() {
+	var PORT string
 
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-}
-
-func main() {
-	var PORT string
-
-	path := "." + os.Getenv("STORE")
+	store := os.Getenv("STORE")
+	path := "." + store
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		os.Mkdir(path, os.ModePerm)
 	}
@@ -37,6 +27,14 @@ func main() {
 	if PORT = os.Getenv("PORT"); PORT == "" {
 		PORT = "3000"
 	}
+
+	config := services.UserFTPConfig{
+		User: os.Getenv("USER"),
+		Pass: os.Getenv("PASS"),
+		Path: store,
+	}
+
+	config.CreateFTPConfiguration()
 
 	r := gin.Default()
 	r.Use(static.Serve("/", static.LocalFile("./client/build", true)))

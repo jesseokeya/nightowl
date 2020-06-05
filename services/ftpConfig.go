@@ -79,7 +79,7 @@ func (c *UserFTPConfig) CreateFTPConfiguration() {
 				User: c.User,
 				Pass: c.Pass,
 				Parameters: Params{
-					BasePath: path + os.Getenv("STORE"),
+					BasePath: path + c.Path,
 				},
 			},
 		},
