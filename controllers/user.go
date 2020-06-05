@@ -13,7 +13,7 @@ import (
 func GetUsers(c *gin.Context) {
 	users := []models.User{}
 	if err := database.DBCon.Find(&users).Error; err != nil {
-		c.JSON(http.StatusNotFound, structs.Error{Code: http.StatusNotFound, Error: "getting error while processing db request"})
+		c.JSON(http.StatusNotFound, structs.Error{Code: http.StatusNotFound, Error: err.Error()})
 		return
 	}
 
