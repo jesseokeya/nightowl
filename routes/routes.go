@@ -17,13 +17,6 @@ func Router(r *gin.Engine) {
 	r.PUT("/users/:id", ctrl.UpdateUser)
 	r.DELETE("/users/:id", ctrl.DeleteUser)
 
-	//image routes
-	r.GET("/images", ctrl.GetImages)
-	r.GET("/images/:id", ctrl.GetImage)
-	r.POST("/images", ctrl.CreateImage)
-	r.PUT("/images/:id", ctrl.UpdateImage)
-	r.DELETE("/images/:id", ctrl.DeleteImage)
-
 	//resources routes
 	r.GET(os.Getenv("STORE"), ctrl.GetResources)
 }
