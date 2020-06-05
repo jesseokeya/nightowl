@@ -2,9 +2,9 @@
     "version": 1,
     "accesses": [
         {
-            "user": "jesseokeya",
-            "pass": "connect123!@#",
-            "fs": "os",
+            "user": "{{ .User }}",
+            "pass": "{{ .Pass }}",
+            "fs": "{{ .Fs }}",
             "params": {
                 "basePath": "{{ .BasePath }}"
             }
