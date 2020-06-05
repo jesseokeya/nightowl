@@ -18,13 +18,18 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
+	path := "." + os.Getenv("STORE")
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		os.Mkdir(path, os.ModePerm)
+	}
+
 	if PORT = os.Getenv("PORT"); PORT == "" {
 		PORT = "3000"
 	}
 
 	r := gin.Default()
 	r.Use(static.Serve("/", static.LocalFile("./client/build", true)))
-	r.Static("/resources", "./resources")
+	r.Static(path, path)
 	r.Use(func(c *gin.Context) {
 		c.Writer.Header().Add("Access-Control-Allow-Origin", "*")
 		c.Writer.Header().Add("Access-Control-Allow-Credentials", "true")

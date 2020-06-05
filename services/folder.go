@@ -1,4 +1,4 @@
-package internal
+package services
 
 import (
 	"os"
@@ -38,7 +38,7 @@ func (f *Folder) Interprete() []File {
 				Name:      info.Name(),
 				Size:      info.Size(),
 				Path:      path,
-				SelfLink:  "/resources" + link,
+				SelfLink:  os.Getenv("STORE") + link,
 				Created:   info.ModTime(),
 			}
 			files = append(files, file)

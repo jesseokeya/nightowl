@@ -2,18 +2,18 @@ package controllers
 
 import (
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
-	"github.com/jesseokeya/nightowl/internal"
+	"github.com/jesseokeya/nightowl/services"
 	"github.com/jesseokeya/nightowl/structs"
 )
 
 // GetResources retrieves all the resources
 func GetResources(c *gin.Context) {
-	path := "/Users/jesseokeya/go/src/github.com/jesseokeya/nightowl/resources"
-	// query := c.Request.URL.Query()["file"]
+	path := "." + os.Getenv("STORE")
 
-	folder := internal.Folder{
+	folder := services.Folder{
 		Path: path,
 	}
 
