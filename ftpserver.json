@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "accesses": [
+    {
+      "user": "jesseokeya",
+      "pass": "connect123!@#",
+      "fs": "os",
+      "params": {
+        "basePath": "/Users/jesseokeya/go/src/github.com/jesseokeya/nightowl/resources"
+      }
+    }
+  ],
+  "passive_transfer_port_range": {
+    "start": 2122,
+    "end": 2130
+  }
+}

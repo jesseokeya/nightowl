@@ -1,6 +1,11 @@
 package controllers
 
-import "github.com/gin-gonic/gin"
+import (
+	"io/ioutil"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
 
 // GetImages retrieves all the images
 func GetImages(c *gin.Context) {}
@@ -9,7 +14,11 @@ func GetImages(c *gin.Context) {}
 func GetImage(c *gin.Context) {}
 
 // CreateImage creates a new image
-func CreateImage(c *gin.Context) {}
+func CreateImage(c *gin.Context) {
+	body, _ := ioutil.ReadAll(c.Request.Body)
+	println(string(body))
+	c.JSON(http.StatusOK, gin.H{"msg": "this worked"})
+}
 
 // UpdateImage updates a particular image
 func UpdateImage(c *gin.Context) {}
