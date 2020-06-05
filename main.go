@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 	"github.com/jesseokeya/nightowl/routes"
+	"github.com/jesseokeya/nightowl/services"
 	"github.com/joho/godotenv"
 )
 
@@ -26,6 +27,14 @@ func main() {
 	if PORT = os.Getenv("PORT"); PORT == "" {
 		PORT = "3000"
 	}
+
+	config := services.UserFTPConfig{
+		User: "jesseokeya",
+		Pass: "connect123!@#",
+		Path: "/Users/jesseokeya/go/src/github.com/jesseokeya/nightowl/resources",
+	}
+
+	config.CreateFTPConfiguration()
 
 	r := gin.Default()
 	r.Use(static.Serve("/", static.LocalFile("./client/build", true)))
