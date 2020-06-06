@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './pages/App';
+
+import "antd/dist/antd.css";
+
 import * as serviceWorker from './workers/serviceWorker';
 
 ReactDOM.render(
