@@ -50,8 +50,7 @@ func main() {
 			c.Next()
 		}
 	})
-
-	routes.Router(r)
+	routes.Router(r.Group("/api/"))
 
 	r.Run("0.0.0.0:" + PORT)
 }

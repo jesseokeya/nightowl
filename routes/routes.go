@@ -8,7 +8,7 @@ import (
 )
 
 // Router helps roue our application to the appropriate controller
-func Router(r *gin.Engine) {
+func Router(r *gin.RouterGroup) {
 
 	//user routes
 	r.GET("/users", ctrl.GetUsers)
