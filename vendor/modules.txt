@@ -1,8 +1,5 @@
 # github.com/gin-contrib/sse v0.1.0
 github.com/gin-contrib/sse
-# github.com/gin-gonic/contrib v0.0.0-20191209060500-d6e26eeaa607
-## explicit
-github.com/gin-gonic/contrib/static
 # github.com/gin-gonic/gin v1.6.3
 ## explicit
 github.com/gin-gonic/gin
