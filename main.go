@@ -4,7 +4,6 @@ import (
 	"log"
 	"os"
 
-	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 	"github.com/jesseokeya/nightowl/routes"
 	"github.com/jesseokeya/nightowl/services"
@@ -37,7 +36,7 @@ func main() {
 	config.CreateFTPConfiguration()
 
 	r := gin.Default()
-	r.Use(static.Serve("/", static.LocalFile("./client/build", true)))
+	// r.Use(static.Serve("/", static.LocalFile("./client/build", true)))
 	r.Static(path, path)
 	r.Use(func(c *gin.Context) {
 		c.Writer.Header().Add("Access-Control-Allow-Origin", "*")
