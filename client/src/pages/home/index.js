@@ -57,7 +57,7 @@ function Home() {
             <Link to="/resources">Resources</Link>
           </Menu.Item>
           <Menu.Item key="3" icon={<SettingOutlined />}>
-            <Link to="/settings">Resources</Link>
+            <Link to="/settings">Settings</Link>
           </Menu.Item>
         </Menu>
       </Sider>
@@ -81,7 +81,7 @@ function Home() {
           <div className="container">
             <Switch>
               <Route exact path="/">
-                <LiveStream source="http://192.168.0.27:8081" />
+                <LiveStream source="http://192.168.0.24:8081" />
               </Route>
               <Route path="/resources">
                 <Resources />
