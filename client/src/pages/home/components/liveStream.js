@@ -20,7 +20,6 @@ export const LiveStream = (props) => {
   return (
     <Fragment>
       <div className="wrap" style={divStyle} data-auto-scroll="true">
-        <embed />
         <iframe
           className="iframe"
           title="nightOwl"
