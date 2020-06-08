@@ -12,6 +12,7 @@ import "../../styles/app.css";
 
 import { LiveStream } from "./components";
 import Resources from "../resources";
+import Settings from "../settings";
 
 const { Header, Sider, Content } = Layout;
 
@@ -86,7 +87,9 @@ function Home() {
               <Route path="/resources">
                 <Resources />
               </Route>
-              <Route path="/settings"></Route>
+              <Route path="/settings">
+                <Settings />
+              </Route>
             </Switch>
           </div>
         </Content>
