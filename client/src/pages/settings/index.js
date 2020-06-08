@@ -207,7 +207,7 @@ const Settings = () => {
         label="Upload"
         valuePropName="fileList"
         getValueFromEvent={normFile}
-        extra="longgggggggggggggggggggggggggggggggggg"
+        extra=""
       >
         <Upload name="logo" action="/upload.do" listType="picture">
           <Button>
