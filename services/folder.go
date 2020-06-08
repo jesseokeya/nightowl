@@ -52,3 +52,9 @@ func (f *Folder) Interprete() []File {
 
 	return files
 }
+
+// DeleteFile deletes a file from the folder directory
+func (f *Folder) DeleteFile(path string) error {
+	var err = os.Remove(path)
+	return err
+}

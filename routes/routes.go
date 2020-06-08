@@ -1,8 +1,6 @@
 package routes
 
 import (
-	"os"
-
 	"github.com/gin-gonic/gin"
 	ctrl "github.com/jesseokeya/nightowl/controllers"
 )
@@ -18,5 +16,6 @@ func Router(r *gin.RouterGroup) {
 	r.DELETE("/users/:id", ctrl.DeleteUser)
 
 	//resources routes
-	r.GET(os.Getenv("STORE"), ctrl.GetResources)
+	r.GET("/resources", ctrl.GetResources)
+	r.POST("/resources", ctrl.DeleteResources)
 }
