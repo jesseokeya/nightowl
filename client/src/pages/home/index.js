@@ -72,7 +72,8 @@ function Home() {
               style: {
                 marginLeft: "15px",
                 fontWeight: "bold",
-                fontSize: "25px",
+                fontSize: "22px",
+                marginTop: "2%",
                 color: "white",
               },
             }
