@@ -59,7 +59,7 @@ func main() {
 		}
 	})
 
-	routes.Router(r.Group("/api/"))
+	routes.Router(r.Group("/api/v1"))
 
 	r.Run("0.0.0.0:" + PORT)
 }

@@ -1,6 +1,7 @@
 package services
 
 import (
+	"log"
 	"os"
 	"path/filepath"
 	"strings"
@@ -29,18 +30,8 @@ func (f *Folder) Interprete() []File {
 	root := f.Path
 
 	err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
-		if !info.IsDir() {
-			split := strings.Split(path, "/")
-			parentDir := strings.Join(split[:len(split)-1], "/")
-			link := strings.Replace(path, root, "", 1)
-			file := File{
-				ParentDir: parentDir,
-				Name:      info.Name(),
-				Size:      info.Size(),
-				Path:      path,
-				SelfLink:  "/" + link,
-				Created:   info.ModTime(),
-			}
+		file := f.extractFiles(info, path, root)
+		if (File{}) != file {
 			files = append(files, file)
 		}
 		return nil
@@ -54,7 +45,43 @@ func (f *Folder) Interprete() []File {
 }
 
 // DeleteFile deletes a file from the folder directory
-func (f *Folder) DeleteFile(path string) error {
-	var err = os.Remove(path)
-	return err
+func (f *Folder) DeleteFile(fileName string) ([]File, error) {
+	var files []File
+	root := f.Path
+
+	err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
+		if info.Name() == fileName {
+			os.Remove(path)
+			log.Printf("file %s was successfully deleted", fileName)
+		} else {
+			file := f.extractFiles(info, path, root)
+			if (File{}) != file {
+				files = append(files, file)
+			}
+		}
+		return nil
+	})
+
+	return files, err
+}
+
+// extractFiles isa aprivate helper method to get and build the file json object
+func (f *Folder) extractFiles(info os.FileInfo, path string, root string) File {
+	var file File
+
+	if !info.IsDir() {
+		split := strings.Split(path, "/")
+		parentDir := strings.Join(split[:len(split)-1], "/")
+		link := strings.Replace(path, root, "", 1)
+		file = File{
+			ParentDir: parentDir,
+			Name:      info.Name(),
+			Size:      info.Size(),
+			Path:      path,
+			SelfLink:  "/" + link,
+			Created:   info.ModTime(),
+		}
+	}
+
+	return file
 }

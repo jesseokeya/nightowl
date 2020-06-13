@@ -17,5 +17,5 @@ func Router(r *gin.RouterGroup) {
 
 	//resources routes
 	r.GET("/resources", ctrl.GetResources)
-	r.POST("/resources", ctrl.DeleteResources)
+	r.DELETE("/resources/:filename", ctrl.DeleteResources)
 }

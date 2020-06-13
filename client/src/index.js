@@ -6,10 +6,7 @@ import "antd/dist/antd.css";
 
 import * as serviceWorker from './workers/serviceWorker';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+ReactDOM.render(<App />,
   document.getElementById('root')
 );
 
